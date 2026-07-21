@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auto P1T Mobile — Documento Maestro del Proyecto</title>
+<style>
+  :root{
+    --navy:#0b1526; --navy2:#101f38; --orange:#ff6a1a; --orange2:#ff8c42;
+    --steel:#5b7089; --light:#f4f6f9; --card:#ffffff; --text:#1c2530; --muted:#5c6b7a;
+    --line:#e2e7ee; --good:#1a8f5e; --warn:#c8890c; --bad:#c93838;
+    --p1:#c93838; --p2:#ff6a1a; --p3:#2a4d7a; --p4:#0f9488;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:'Segoe UI', Arial, sans-serif; color:var(--text); background:var(--light); line-height:1.6;}
+  .cover{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 55%,#1a2f4d 100%); color:#fff; padding:64px 56px 48px; position:relative; overflow:hidden;}
+  .cover::after{content:""; position:absolute; right:-80px; top:-80px; width:360px; height:360px; background:radial-gradient(circle, rgba(255,106,26,0.35) 0%, rgba(255,106,26,0) 70%);}
+  .tag{display:inline-block; background:var(--orange); color:#fff; font-weight:700; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:6px 14px; border-radius:20px; margin-bottom:20px;}
+  .logo{ height:140px; width:auto; display:block; margin-bottom:16px; filter:drop-shadow(0 6px 16px rgba(0,0,0,.45)); }
+  .cover h1{font-size:34px; margin:0 0 10px; font-weight:800; letter-spacing:-0.4px;}
+  .cover .sub{font-size:16px; color:#c7d2e0; max-width:780px; margin:0 0 20px;}
+  .cover-meta{display:flex; gap:36px; flex-wrap:wrap; margin-top:18px; font-size:13px; color:#9fb0c4;}
+  .cover-meta strong{display:block; color:#fff; font-size:14px; margin-bottom:2px;}
+  .wrap{max-width:1000px; margin:0 auto; padding:0 56px 80px;}
+  section{margin-top:50px;}
+  h2{font-size:23px; color:var(--navy); margin:0 0 6px; padding-bottom:12px; border-bottom:3px solid var(--orange); display:flex; align-items:center; gap:10px;}
+  h2 .num{background:var(--navy); color:#fff; width:30px; height:30px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; font-size:14px; flex:none;}
+  h3{font-size:16px; color:var(--navy); margin:26px 0 10px;}
+  h4{font-size:14.5px; color:var(--navy2); margin:14px 0 6px;}
+  p{margin:10px 0;}
+  .lead{font-size:16px; color:var(--muted);}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:16px;}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:16px;}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px;}
+  .card h4{margin:0 0 8px;}
+  .card p{font-size:13.5px; color:var(--muted); margin:0;}
+  table{width:100%; border-collapse:collapse; margin-top:12px; font-size:13.5px;}
+  th{background:var(--navy); color:#fff; text-align:left; padding:9px 12px; font-weight:600;}
+  td{padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top;}
+  tr:nth-child(even) td{background:#fafbfd;}
+  .pillar-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:16px;}
+  .pillar-card{border-radius:12px; padding:18px; color:#fff;}
+  .pillar-card h4{color:#fff; margin:0 0 6px; font-size:15px;}
+  .pillar-card p{color:rgba(255,255,255,.88); font-size:12.5px; margin:0;}
+  .pillar-card.p1{background:linear-gradient(135deg,var(--p1),#a52d2d);}
+  .pillar-card.p2{background:linear-gradient(135deg,var(--p2),#d9520a);}
+  .pillar-card.p3{background:linear-gradient(135deg,var(--p3),#16304f);}
+  .pillar-card.p4{background:linear-gradient(135deg,var(--p4),#0b6f68);}
+  .phase{display:flex; gap:16px; margin-top:14px; padding:18px 20px; border-radius:12px; background:var(--card); border:1px solid var(--line); border-left:5px solid var(--orange);}
+  .phase .ph-num{font-size:22px; font-weight:800; color:var(--orange); min-width:64px;}
+  .phase h4{margin:0 0 4px;}
+  .phase p{margin:2px 0; font-size:13.5px; color:var(--muted);}
+  ul{padding-left:20px; margin:8px 0;}
+  li{margin:5px 0;}
+  .callout{background:#eef4fb; border:1px solid #d7e4f2; border-left:4px solid var(--steel); border-radius:8px; padding:14px 18px; font-size:13.5px; color:var(--navy2); margin:16px 0;}
+  .pill{display:inline-block; padding:2px 9px; border-radius:12px; font-size:11px; font-weight:700;}
+  .pill.good{background:#e6f6ee; color:var(--good);}
+  .pill.warn{background:#fdf1dc; color:var(--warn);}
+  .pill.bad{background:#fbe8e8; color:var(--bad);}
+  .sources{font-size:12.5px; color:var(--muted);}
+  .sources a{color:var(--steel);}
+  .footer{text-align:center; padding:30px 20px; color:var(--muted); font-size:12px; border-top:1px solid var(--line); margin-top:60px;}
+  .toc{display:grid; grid-template-columns:1fr 1fr; gap:6px 24px; margin-top:14px;}
+  .toc a{color:var(--navy2); text-decoration:none; font-size:13.5px;}
+  .toc a:hover{text-decoration:underline;}
+  @media (max-width:720px){.grid2,.grid3,.pillar-strip,.toc{grid-template-columns:1fr;} .cover,.wrap{padding-left:22px;padding-right:22px;}}
+
+  .print-btn{position:fixed; top:18px; right:18px; z-index:50; background:var(--orange); color:#fff; border:none; padding:10px 20px; border-radius:24px; font-weight:700; font-size:13px; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,.25); font-family:inherit;}
+  .print-btn:hover{background:var(--orange2);}
+
+  @media print{
+    @page{ size:letter; margin:14mm 12mm; }
+    *{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    body{ background:#fff; font-size:11.5px; }
+    .print-btn{ display:none !important; }
+    .cover{ background:#fff !important; color:var(--navy); padding:0 0 18px; border-bottom:4px solid var(--orange); }
+    .cover::after{ display:none; }
+    .cover h1{ color:var(--navy); }
+    .cover .sub{ color:var(--muted); }
+    .cover-meta{ color:var(--muted); }
+    .cover-meta strong{ color:var(--navy); }
+    .logo{ height:90px; filter:none; }
+    .tag{ background:transparent; color:var(--orange); border:1.5px solid var(--orange); }
+    .wrap{ max-width:none; padding:0; }
+    section{ margin-top:0; break-before:page; page-break-before:always; }
+    section:first-of-type{ break-before:avoid; page-break-before:avoid; }
+    .toc a{ color:var(--navy); text-decoration:none; }
+    table, .card, .pillar-card, .phase, .callout{ break-inside:avoid; page-break-inside:avoid; }
+    tr{ break-inside:avoid; page-break-inside:avoid; }
+    th{ background:var(--light) !important; color:var(--navy) !important; border-bottom:2px solid var(--navy); }
+    .pillar-card{ color:var(--navy); border:1.5px solid var(--line); background:#fff !important; }
+    .pillar-card h4{ color:var(--navy); }
+    .pillar-card p{ color:var(--muted); }
+    .pillar-card.p1{ border-left:5px solid var(--p1); }
+    .pillar-card.p2{ border-left:5px solid var(--p2); }
+    .pillar-card.p3{ border-left:5px solid var(--p3); }
+    .pillar-card.p4{ border-left:5px solid var(--p4); }
+    .grid2, .grid3{ grid-template-columns:1fr 1fr; }
+    .pillar-strip{ grid-template-columns:1fr 1fr; }
+    .footer{ margin-top:24px; }
+    a{ color:inherit; }
+  }
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">Imprimir / Guardar como PDF</button>
+
+<div class="cover">
+  <img src="P1T-LOGO-transparent.png" alt="Auto P1T Mobile" class="logo">
+  <span class="tag">Documento Maestro del Proyecto · v1.0</span>
+  <h1>Auto P1T Mobile</h1>
+  <p class="sub">La plataforma on-demand que lleva todo lo que tu auto necesita hasta tu puerta: asistencia vial, mantenimiento, reparación y detailing, con prestadores verificados y precios transparentes. Nace en Houston, Texas, con la ambición de convertirse en el nombre de referencia en servicios automotrices a domicilio en EE. UU.</p>
+  <div class="cover-meta">
+    <div><strong>Fecha</strong>17 de julio de 2026</div>
+    <div><strong>Mercado inicial</strong>Houston, Texas</div>
+    <div><strong>Mercado objetivo</strong>Nationwide (EE. UU.)</div>
+    <div><strong>Estado</strong>Documento único de referencia del proyecto</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section>
+  <h2><span class="num">·</span>Contenido</h2>
+  <div class="toc">
+    <a href="#resumen">1. Resumen ejecutivo</a>
+    <a href="#modelo">2. Modelo de negocio</a>
+    <a href="#mercado">3. Mercado</a>
+    <a href="#publico">4. Público objetivo</a>
+    <a href="#competencia">5. Panorama competitivo</a>
+    <a href="#pilares">6. Los 4 pilares de servicio</a>
+    <a href="#catalogo">7. Catálogo de servicios</a>
+    <a href="#tecnologia">8. Arquitectura técnica</a>
+    <a href="#regulatorio">9. Cumplimiento regulatorio</a>
+    <a href="#roadmap">10. Roadmap de lanzamiento</a>
+    <a href="#kpis">11. KPIs de éxito</a>
+    <a href="#riesgos">12. Riesgos y mitigación</a>
+    <a href="#fuentes">13. Fuentes</a>
+  </div>
+</section>
+
+<section id="resumen">
+  <h2><span class="num">1</span>Resumen ejecutivo</h2>
+  <p class="lead">Auto P1T Mobile es una plataforma de servicios automotrices a domicilio: conecta a dueños de vehículos con prestadores verificados que acuden a su ubicación para resolver cuatro tipos de necesidad — emergencias viales, mantenimiento programado, reparaciones sin taller y detailing. El lanzamiento es en Houston, Texas, con los cuatro pilares activos desde el primer día, y un plan de escalamiento hacia Texas y luego a nivel nacional.</p>
+  <p>El diferenciador central frente a la competencia (que suele especializarse en un solo pilar) es cubrir las cuatro necesidades bajo una sola app y un solo checkout, con precios fijos publicados y verificación de prestadores como base de la confianza del cliente.</p>
+</section>
+
+<section id="modelo">
+  <h2><span class="num">2</span>Modelo de negocio</h2>
+  <p>Auto P1T Mobile opera como plataforma de dos lados: un punto de encuentro digital entre oferta y demanda, donde la tecnología coordina la solicitud, el cobro y el control de calidad, pero no presta el servicio directamente. Los prestadores son contratistas independientes —no empleados— que aceptan solicitudes por su cuenta, con su propio equipo y horario; no hay flota propia ni personal en nómina prestando el servicio.</p>
+  <p>Monetización: comisión por transacción (principal, 15%–25% del ticket, a validar con prestadores reales en Houston), membresía anual para clientes frecuentes, suscripción premium para prestadores (mayor visibilidad, comisión reducida) y contratos B2B con flotas, aseguradoras, autoclubs y dealers (ver sección 4). Este canal B2B es un segundo motor de demanda, con contratos recurrentes en vez de transacciones sueltas — reduce la dependencia total del consumidor final que se identificó como riesgo de plataforma única.</p>
+  <div class="callout">
+    Texas tiene una regla específica de "marketplace contractor" para plataformas gig (aplicada hoy a Uber/Lyft): para que un prestador conserve su estatus de contratista independiente, la plataforma no puede prohibirle usar otras apps, no puede fijarle horario, y el pago debe ser por trabajo/transacción. Esto significa que el diseño del producto debe evitar exclusividad — los prestadores de Auto P1T Mobile trabajarán también para la competencia, y eso es parte de operar como plataforma de dos lados, no un defecto a corregir.
+  </div>
+
+  <h3>Anclaje de selección: que no entre cualquiera</h3>
+  <p>El punto débil de un modelo abierto es justamente eso — abierto. Pero el anclaje no se vende como control: el mensaje al prestador no es "ven a trabajar para Auto P1T Mobile", es lo contrario — la plataforma existe para hacer crecer su negocio independiente, con visibilidad, demanda constante e ingresos que hoy no tiene por su cuenta. Ese giro de mensaje es tan fundamental como el anclaje mismo: sostiene el estatus de contratista independiente (nadie que se percibe dueño de su negocio actúa como empleado) y es el argumento de reclutamiento — un mecánico o detailer no se une a una empresa, hace crecer el suyo. Sobre esa base, Auto P1T Mobile toma prestada del franquiciado la lógica que ancla al prestador, sin convertirlo en franquiciatario ni en empleado:</p>
+  <ul>
+    <li><strong>Umbral de entrada:</strong> licencia vigente, seguro de responsabilidad civil, antecedentes limpios y experiencia mínima verificable — protege la reputación de quienes sí califican frente a operadores no verificados.</li>
+    <li><strong>Inversión propia en herramienta certificada:</strong> escáner de diagnóstico, kit de detailing o equipo del pilar en el que opera. El prestador invierte en su propio negocio, no le paga una cuota a Auto P1T Mobile por el privilegio de entrar — así queda "piel en el juego" sin activar el elemento de cuota que convertiría la relación en una franquicia real.</li>
+    <li><strong>Certificación por niveles:</strong> evaluación de habilidad que desbloquea categorías de mayor ticket (reparación, detailing premium) — cada nivel es más ingreso disponible, no más control.</li>
+    <li><strong>Co-marca P1T:</strong> rotulación del vehículo y uniforme que elevan la percepción profesional del prestador frente al cliente — una credencial de confianza que sube su tasa de conversión, no un uniforme corporativo que lo subordina.</li>
+    <li><strong>Reputación con consecuencia real:</strong> mejor desempeño significa más solicitudes y mejor prioridad; desempeño débil significa menos visibilidad o suspensión — el sistema premia antes de castigar.</li>
+  </ul>
+  <p style="font-size:13px;color:var(--muted)">Nota de diseño: si en algún momento se agrega una cuota de certificación cobrada al prestador, debe mantenerse por debajo de los $500 o atada a un costo real (ej. verificación de antecedentes) — superar ese umbral junto con el control de marca y de método ya descritos activaría la Regla de Franquicias de la FTC para cada prestador.</p>
+  <p>El prestador es, en el fondo, el cliente interno del producto — el eje sobre el que se sostiene todo lo demás. Un buen producto para el prestador (herramientas simples, pagos rápidos, visibilidad real) resuelve la mayor parte de la ecuación de mercado por sí solo; conseguir clientes finales, en comparación, es un problema de marketing, no de producto. Por eso la experiencia del prestador dentro de la app recibe la misma prioridad de diseño que la del cliente final, no un rol secundario.</p>
+</section>
+
+<section id="mercado">
+  <h2><span class="num">3</span>Mercado y defensibilidad</h2>
+  <p class="lead">El mercado de Auto P1T Mobile se arma sobre los cuatro pilares del catálogo. La base es mantenimiento y reparación automotriz —el segmento más grande y de mayor frecuencia—, con la asistencia vial como gancho de alta frecuencia para adquisición de clientes y el detailing como capa de cross-sell sobre la misma base de clientes y prestadores.</p>
+  <div class="grid3">
+    <div class="card"><h4>Reparación y mantenimiento automotriz (EE. UU.)</h4><p><strong>$211.1B</strong> en 2026. El segmento móvil/on-demand crece 9.2% anual, más rápido que el mercado general.</p></div>
+    <div class="card"><h4>Asistencia vial (EE. UU.)</h4><p><strong>$5.99B → $7.73B</strong> — crecimiento proyectado 2022–2029.</p></div>
+    <div class="card"><h4>Detailing y embellecimiento (EE. UU.)</h4><p><strong>$18.7B</strong> — el pilar más pequeño; opera como producto de alta frecuencia, no como negocio central.</p></div>
+  </div>
+  <p>El canal B2B de dealers (sección 4) se apoya en un mercado todavía mayor: cerca de 40 millones de autos usados cambian de dueño cada año en EE. UU., y cada uno pasa por un proceso de reacondicionamiento antes de poder venderse.</p>
+
+  <h3>Por qué es defendible</h3>
+  <p>Los marketplaces de oferta homogénea y baja fricción para cambiar de proveedor —como el transporte por app— tienen defensibilidad débil: el cliente no tiene lealtad, solo quiere el más cercano y barato. Auto P1T Mobile evita esa trampa por tres vías: la oferta no es homogénea (diagnóstico con escáner, certificación y herramienta especializada diferencian a un prestador de otro); el cliente concentra cuatro necesidades distintas en una sola app, lo que eleva su valor de vida aunque el prestador trabaje también para la competencia; y el canal B2B de dealers corre en paralelo al de consumidor final, con contratos recurrentes que no dependen de la adquisición diaria de un solo lado del mercado.</p>
+</section>
+
+<section id="publico">
+  <h2><span class="num">4</span>Público objetivo</h2>
+  <div class="grid2">
+    <div class="card"><h4>Usuario final (dueño de vehículo)</h4><p>Vive en zonas urbanas/suburbanas de Houston, valora conveniencia y tiempo. Busca precio transparente, prestadores verificados, seguimiento en tiempo real y reseñas confiables.</p></div>
+    <div class="card"><h4>Prestador de servicio — cliente interno, eje del producto</h4><p>Mecánicos independientes, detailers y talleres móviles que buscan demanda constante sin invertir en marketing propio. Se le da la misma prioridad de diseño que al cliente final: pagos garantizados, herramientas simples de agenda y cobro, y visibilidad real — porque un buen producto para el prestador es lo que sostiene la calidad de todo lo demás.</p></div>
+  </div>
+
+  <h3>Segmento B2B: dealers y lotes de venta de autos</h3>
+  <p>Los dealers independientes y lotes "buy here pay here" — muy numerosos en Houston — necesitan dejar cada vehículo listo para exhibir (reconditioning) lo más rápido posible: mientras el auto no está en el frente del lote, genera solo costo. Es un mercado adyacente al mismo catálogo de servicios, con un comprador distinto (el dealer, no el dueño final) y un modelo de contrato recurrente en vez de transacción única.</p>
+  <div class="grid3">
+    <div class="card"><h4>Costo de inventario parado</h4><p>$32–$100 por vehículo, por día, mientras no está listo para vender.</p></div>
+    <div class="card"><h4>Tiempo a piso de venta</h4><p>Promedio de la industria: 5–10 días; los mejores dealers logran 3–5 días.</p></div>
+    <div class="card"><h4>Tercerización ya establecida</h4><p>Más del 42% de los operadores comerciales ya subcontrata detailing con terceros.</p></div>
+  </div>
+</section>
+
+<section id="competencia">
+  <h2><span class="num">5</span>Panorama competitivo</h2>
+  <table>
+    <tr><th>Plataforma</th><th>Enfoque</th><th>Diferenciador</th></tr>
+    <tr><td><strong>YourMechanic</strong></td><td>Reparación y mantenimiento a domicilio</td><td>Garantía 12 meses / 12,000 millas</td></tr>
+    <tr><td><strong>Wrench</strong></td><td>Diagnóstico, frenos, mantenimiento</td><td>Red nacional consolidada</td></tr>
+    <tr><td><strong>RepairSmith</strong></td><td>Reparación y mantenimiento móvil</td><td>Cotización instantánea</td></tr>
+    <tr><td><strong>Spiffy</strong></td><td>Detailing, lavado, cambio de aceite</td><td>Fuerte enfoque en embellecimiento</td></tr>
+  </table>
+  <p>Ningún competidor principal cubre de forma integrada asistencia, mantenimiento, reparación <em>y</em> detailing bajo una sola app. Auto P1T Mobile puede diferenciarse siendo la superapp de servicios automotrices a domicilio.</p>
+</section>
+
+<section id="pilares">
+  <h2><span class="num">6</span>Los 4 pilares de servicio</h2>
+  <p class="lead">El criterio que separa Mantenimiento de Reparación es la <strong>duración</strong>, no el tamaño del trabajo: si se resuelve el mismo día en una sola visita, es Mantenimiento; si toma más de un día —normalmente porque hay que esperar una pieza o su regreso de un proceso externo— pero se hace con herramienta de mano y gato, sin taller fijo, es Reparación. Lo que exige plataforma de alineación, banco de pruebas o desarmar el motor por completo no es "reparación mayor" de este pilar: es trabajo de taller y queda fuera del alcance móvil (ver 7.3).</p>
+  <div class="pillar-strip">
+    <div class="pillar-card p1"><h4>1 · Asistencia</h4><p>Emergencia vial inmediata: batería, llanta, combustible, cerrajería vehicular.</p></div>
+    <div class="pillar-card p2"><h4>2 · Mantenimiento</h4><p>Se resuelve el mismo día: diagnóstico, frenos, bujías, accesorios, fluidos.</p></div>
+    <div class="pillar-card p3"><h4>3 · Reparación</h4><p>Más de un día, sin taller: bomba de agua, alternador, motor de arranque, suspensión.</p></div>
+    <div class="pillar-card p4"><h4>4 · Detailing</h4><p>Estética y protección: lavado, encerado, cerámico, tinte, PPF.</p></div>
+  </div>
+</section>
+
+<section id="catalogo">
+  <h2><span class="num">7</span>Catálogo de servicios</h2>
+  <p class="lead">Barrido de todo servicio automotriz ofrecible a domicilio, con precio de referencia de mercado (EE. UU./Houston, 2026). Los servicios marcados "a cotizar" no cuentan todavía con un precio de mercado confiable y deben cotizarse con proveedores locales antes de publicarse.</p>
+
+  <h3>7.1 · Asistencia crítica</h3>
+  <table>
+    <tr><th>Servicio</th><th>Precio de referencia</th></tr>
+    <tr><td>Arranque con puente (jump start)</td><td>$50–$85</td></tr>
+    <tr><td>Batería en sitio (prueba y reemplazo)</td><td>$120–$220</td></tr>
+    <tr><td>Cambio o reparación de llanta ponchada</td><td>$40–$95</td></tr>
+    <tr><td>Apertura de vehículo (lockout)</td><td>$50–$120</td></tr>
+    <tr><td>Entrega de combustible</td><td>$50–$90 + combustible</td></tr>
+    <tr><td>Carga móvil de emergencia para EV</td><td>$75–$200</td></tr>
+  </table>
+
+  <h3>7.2 · Mantenimiento programado (mismo día)</h3>
+  <table>
+    <tr><th>Servicio</th><th>Precio de referencia</th></tr>
+    <tr><td>Lectura y borrado de códigos (OBD-II)</td><td>$20–$70</td></tr>
+    <tr><td>Diagnóstico de check engine</td><td>$70–$200</td></tr>
+    <tr><td>Diagnóstico avanzado full-system</td><td>$200–$500</td></tr>
+    <tr><td>Diagnóstico de ABS, airbag o transmisión</td><td>$90–$300</td></tr>
+    <tr><td>Diagnóstico eléctrico (multímetro/osciloscopio)</td><td>$80–$250</td></tr>
+    <tr><td>Escaneo bidireccional</td><td>$100–$300</td></tr>
+    <tr><td>Programación o codificación de módulos</td><td>$100–$350</td></tr>
+    <tr><td>Reset de servicio / relearn TPMS</td><td>$20–$120</td></tr>
+    <tr><td>Calibración de ADAS (cámaras/radar)</td><td>$150–$500</td></tr>
+    <tr><td>Inspección técnica pre-compra</td><td>$40–$250</td></tr>
+    <tr><td>Cambio de bombillos/focos</td><td>$15–$90</td></tr>
+    <tr><td>Cambio de limpiaparabrisas</td><td>$15–$45</td></tr>
+    <tr><td>Fusibles y relés</td><td>$25–$80</td></tr>
+    <tr><td>Batería de control remoto (llave)</td><td>$15–$40</td></tr>
+    <tr><td>Inflado y presión de llantas, rellenado de fluidos</td><td>$15–$60</td></tr>
+    <tr><td>Instalación de dashcam</td><td>$80–$500</td></tr>
+    <tr><td>Cámara o sensores de reversa</td><td>$120–$350</td></tr>
+    <tr><td>Luces LED o faros auxiliares</td><td>$80–$300</td></tr>
+    <tr><td>Estéreo, alarma, arranque remoto o GPS</td><td>$100–$450</td></tr>
+    <tr><td>Cargador USB, enganche ligero, accesorios</td><td>$40–$200</td></tr>
+    <tr><td>Escudo antirrobo de catalizador</td><td>$150–$400</td></tr>
+    <tr><td>Cambio de frenos y balatas por eje</td><td>$90–$350</td></tr>
+    <tr><td>Cambio de bujías o bobinas de encendido</td><td>$90–$350</td></tr>
+    <tr><td>Banda serpentina y tensor</td><td>$100–$300</td></tr>
+    <tr><td>Cambio de aceite, filtros y rotación</td><td>$30–$200</td></tr>
+    <tr><td>Inspección multipunto y llanta nueva a domicilio</td><td>$40–$150</td></tr>
+    <tr><td>Filtro de aire de cabina o de motor</td><td>A cotizar</td></tr>
+    <tr><td>Cambio de líquido de frenos</td><td>A cotizar</td></tr>
+    <tr><td>Cambio de líquido de dirección hidráulica</td><td>A cotizar</td></tr>
+    <tr><td>Servicio de líquido de transmisión automática</td><td>A cotizar</td></tr>
+    <tr><td>Cambio de líquido de diferencial o transfer case</td><td>A cotizar</td></tr>
+    <tr><td>Limpieza de sistema de combustible (aditivo, en el vehículo)</td><td>A cotizar</td></tr>
+    <tr><td>Reemplazo de mangueras de radiador o termostato</td><td>A cotizar</td></tr>
+    <tr><td>Reemplazo de sensor TPMS</td><td>A cotizar</td></tr>
+    <tr><td>Programación o duplicado de llave con chip</td><td>A cotizar</td></tr>
+    <tr><td>Reparación básica de cerradura o encendido</td><td>A cotizar</td></tr>
+    <tr><td>Recarga de gas refrigerante A/C (sin fuga)</td><td>A cotizar</td></tr>
+    <tr><td>Instalación de cargador EV nivel 2 en el hogar</td><td>A cotizar</td></tr>
+  </table>
+
+  <h3>7.3 · Reparación (más de un día, sin taller)</h3>
+  <table>
+    <tr><th>Servicio</th><th>Precio de referencia</th></tr>
+    <tr><td>Instalación de bomba de agua</td><td>$400–$1,000</td></tr>
+    <tr><td>Alternador</td><td>$250–$700</td></tr>
+    <tr><td>Motor de arranque</td><td>$250–$700</td></tr>
+    <tr><td>Regulador o motor de vidrio eléctrico</td><td>$150–$400</td></tr>
+    <tr><td>Amortiguadores o struts</td><td>A cotizar</td></tr>
+    <tr><td>Rótulas y terminales de dirección</td><td>A cotizar</td></tr>
+    <tr><td>Barra estabilizadora y bujes</td><td>A cotizar</td></tr>
+    <tr><td>Reparación de fuga de A/C</td><td>A cotizar</td></tr>
+    <tr><td>Radiador (reemplazo completo)</td><td>A cotizar</td></tr>
+    <tr><td>Bomba de combustible</td><td>A cotizar</td></tr>
+    <tr><td>Correa o cadena de distribución</td><td>A cotizar</td></tr>
+    <tr><td>Sistema de escape o mofle</td><td>A cotizar</td></tr>
+    <tr><td>Catalizador (reemplazo de la pieza)</td><td>A cotizar</td></tr>
+    <tr><td>Turbo y componentes de sobrealimentación (reemplazo de pieza)</td><td>A cotizar</td></tr>
+    <tr><td>Limpieza y calibración de inyectores en banco</td><td>A cotizar — retiro de la pieza y envío a banco de pruebas</td></tr>
+  </table>
+  <div class="callout">
+    <strong>Fuera de alcance móvil (se deriva a taller socio):</strong> servicio mayor de transmisión, embrague, junta de culata o reconstrucción de motor — porque desarmar un motor o una transmisión implica desmontar miles de piezas, algo que solo es viable en un espacio de taller controlado, no en la ubicación del cliente. Alineación de dirección y balanceo de llantas también quedan fuera: el equipo de alineación es una plataforma fija, dimensionalmente más grande que el propio vehículo. Igualmente fuera de alcance: trabajo de carrocería y pintura estructural, y la prueba oficial de emisiones (debe hacerse en una estación certificada por el estado; Auto P1T Mobile ofrece únicamente la inspección técnica previa). Estos casos no son "reparación mayor" del pilar 3 — son una categoría distinta de trabajo de taller que Auto P1T Mobile deriva, no realiza.
+  </div>
+
+  <h3>7.4 · Detailing y embellecimiento</h3>
+  <table>
+    <tr><th>Servicio</th><th>Precio de referencia</th></tr>
+    <tr><td>Lavado exprés a domicilio</td><td>$50–$100</td></tr>
+    <tr><td>Detailing exterior</td><td>$100–$175</td></tr>
+    <tr><td>Detailing interior</td><td>$139–$225</td></tr>
+    <tr><td>Detail completo (interior y exterior)</td><td>$180–$400</td></tr>
+    <tr><td>Descontaminación de pintura (clay bar)</td><td>$60–$150</td></tr>
+    <tr><td>Encerado tradicional</td><td>$50–$120</td></tr>
+    <tr><td>Sellador de pintura sintético</td><td>$100–$200</td></tr>
+    <tr><td>Pulido o corrección de pintura (1 paso)</td><td>$200–$450</td></tr>
+    <tr><td>Corrección de pintura multi-paso</td><td>$450–$900</td></tr>
+    <tr><td>Instalación de película polarizada</td><td>$200–$650</td></tr>
+    <tr><td>Recubrimiento cerámico de entrada</td><td>$500–$900</td></tr>
+    <tr><td>Recubrimiento cerámico multi-capa</td><td>$900–$2,000</td></tr>
+    <tr><td>Restauración de faros</td><td>$50–$120</td></tr>
+    <tr><td>Tratamiento de cuero y eliminación de olores</td><td>$60–$180</td></tr>
+    <tr><td>Reparación de abolladuras sin pintura (PDR)</td><td>$60–$350</td></tr>
+    <tr><td>PDR por daño de granizo</td><td>$500–$3,500</td></tr>
+    <tr><td>Instalación de PPF, frente parcial</td><td>$600–$1,500</td></tr>
+    <tr><td>Instalación de PPF, frente completo</td><td>$1,500–$3,500</td></tr>
+    <tr><td>Instalación de PPF, cuerpo completo</td><td>$5,000–$8,000</td></tr>
+    <tr><td>Instalación de vinyl wrap</td><td>$1,500–$6,000</td></tr>
+    <tr><td>Pintura de calibradores de freno</td><td>A cotizar</td></tr>
+    <tr><td>Detailing de motor (engine bay)</td><td>A cotizar</td></tr>
+    <tr><td>Cuidado de capota de convertible</td><td>A cotizar</td></tr>
+  </table>
+
+  <h3>7.5 · Paquetes para dealers y lotes de venta (recon)</h3>
+  <table>
+    <tr><th>Paquete</th><th>Incluye</th><th>Precio de referencia</th></tr>
+    <tr><td>Recon básico</td><td>Inspección multipunto con escáner + detail completo</td><td>$220–$550 por vehículo</td></tr>
+    <tr><td>Recon completo</td><td>Recon básico + PDR de golpes menores + retoque de pintura + restauración de faros</td><td>$450–$1,200 por vehículo</td></tr>
+    <tr><td>Contrato de lote por volumen</td><td>Tarifa fija mensual con turnaround garantizado (ej. 24–48 h por unidad)</td><td>A cotizar por volumen</td></tr>
+  </table>
+
+  <h3>7.6 · Servicios transversales</h3>
+  <table>
+    <tr><th>Servicio</th><th>Precio de referencia</th></tr>
+    <tr><td>Membresía anual o plan familiar</td><td>$59–$299/año</td></tr>
+    <tr><td>Contratos B2B (flotas, aseguradoras, autoclubs, dealers)</td><td>Tarifa/retainer</td></tr>
+    <tr><td>Venta de productos (baterías, llantas, kits)</td><td>Margen sobre costo</td></tr>
+  </table>
+</section>
+
+<section id="tecnologia">
+  <h2><span class="num">8</span>Arquitectura técnica recomendada</h2>
+  <table>
+    <tr><th>Capa</th><th>Recomendación</th></tr>
+    <tr><td>App móvil (cliente y prestador)</td><td>Flutter o React Native — un solo código base para iOS/Android</td></tr>
+    <tr><td>Backend</td><td>Node.js/NestJS, arquitectura de microservicios</td></tr>
+    <tr><td>Base de datos</td><td>PostgreSQL + PostGIS para matching por cercanía</td></tr>
+    <tr><td>Geolocalización</td><td>Google Maps Platform</td></tr>
+    <tr><td>Pagos</td><td>Stripe Connect (split de comisión y payout a prestadores)</td></tr>
+    <tr><td>Notificaciones</td><td>Firebase Cloud Messaging + Twilio (SMS)</td></tr>
+    <tr><td>Verificación de antecedentes</td><td>Checkr o similar</td></tr>
+    <tr><td>Infraestructura</td><td>AWS o GCP, contenedores</td></tr>
+  </table>
+</section>
+
+<section id="regulatorio">
+  <h2><span class="num">9</span>Cumplimiento regulatorio (Texas / Houston)</h2>
+  <ul>
+    <li>Texas no exige licencia estatal específica para mecánico móvil, pero requiere registro del negocio y permiso de venta ante el Texas Comptroller.</li>
+    <li>Houston exige licencia de <em>Automotive Repair Facility</em> para cualquier negocio que repare vehículos, incluyendo operaciones móviles.</li>
+    <li>Cumplimiento ambiental ante la TCEQ para manejo de fluidos automotrices.</li>
+    <li>Cada prestador debe tener seguro de responsabilidad civil y seguro vehicular vigente, verificado en el onboarding.</li>
+    <li>Desde el 1 de enero de 2025, Texas eliminó la inspección de seguridad vehicular para vehículos no comerciales. Harris County sigue exigiendo inspección de emisiones anual para vehículos a gasolina de 2 a 24 años, realizada en estación certificada — Auto P1T Mobile puede ofrecer la revisión técnica previa (readiness check), no la prueba oficial.</li>
+  </ul>
+</section>
+
+<section id="roadmap">
+  <h2><span class="num">10</span>Roadmap de lanzamiento</h2>
+  <div class="phase"><div class="ph-num">F0</div><div><h4>Validación y diseño (0–2 meses)</h4><p>Entrevistas con prestadores y usuarios en Houston, pricing definitivo, diseño UX/UI.</p></div></div>
+  <div class="phase"><div class="ph-num">F1</div><div><h4>Piloto Houston, 4 pilares activos (mes 3–6)</h4><p>Lanzamiento con red abierta de prestadores independientes verificados; Reparación opera principalmente vía derivación a talleres socios.</p></div></div>
+  <div class="phase"><div class="ph-num">F2</div><div><h4>Escalamiento Houston Metro (mes 7–12)</h4><p>Cobertura completa del área metropolitana, crecimiento de la red de prestadores por volumen de demanda.</p></div></div>
+  <div class="phase"><div class="ph-num">F3</div><div><h4>Expansión Texas (año 2)</h4><p>San Antonio, Austin, Dallas-Fort Worth.</p></div></div>
+  <div class="phase"><div class="ph-num">F4</div><div><h4>Escalamiento nacional (año 3+)</h4><p>Expansión por densidad poblacional y disponibilidad de prestadores.</p></div></div>
+</section>
+
+<section id="kpis">
+  <h2><span class="num">11</span>KPIs de éxito (fase piloto)</h2>
+  <div class="grid3">
+    <div class="card"><h4>Adopción</h4><p>Descargas, usuarios activos, prestadores verificados activos en Houston.</p></div>
+    <div class="card"><h4>Transacción</h4><p>GMV mensual, ticket promedio, tasa de repetición de compra.</p></div>
+    <div class="card"><h4>Calidad</h4><p>Calificación promedio, tasa de disputas, ETA real vs. estimado.</p></div>
+  </div>
+</section>
+
+<section id="riesgos">
+  <h2><span class="num">12</span>Riesgos y mitigación</h2>
+  <table>
+    <tr><th>Riesgo</th><th>Impacto</th><th>Mitigación</th></tr>
+    <tr><td>Escasez de prestadores verificados al lanzar</td><td><span class="pill bad">Alto</span></td><td>Reclutamiento pre-lanzamiento con comisión reducida inicial</td></tr>
+    <tr><td>Competencia establecida ya opera en Texas</td><td><span class="pill warn">Medio</span></td><td>Diferenciación por los 4 pilares integrados</td></tr>
+    <tr><td>Calidad inconsistente afecta la confianza</td><td><span class="pill bad">Alto</span></td><td>Checklist digital, fotos antes/después, calificación con consecuencias</td></tr>
+    <tr><td>Incidentes de seguridad en domicilio del cliente</td><td><span class="pill bad">Alto</span></td><td>Verificación de antecedentes, seguro obligatorio, geolocalización activa</td></tr>
+    <tr><td>Clasificación laboral de prestadores (contratista vs. empleado)</td><td><span class="pill bad">Alto</span></td><td>Cumplir la regla de "marketplace contractor" de Texas: pago por transacción, sin horario fijo, sin exclusividad. El riesgo federal (DOL/IRS) sigue vigente y es un criterio distinto — requiere asesoría legal laboral antes del lanzamiento</td></tr>
+    <tr><td>Fuga de transacciones fuera de la plataforma (disintermediación)</td><td><span class="pill bad">Alto</span></td><td>Ofrecer valor que no existe fuera de la app: garantía, seguro del servicio, historial del vehículo, pago protegido — no solo el match inicial</td></tr>
+    <tr><td>Baja lealtad de prestadores (multi-homing en varias apps)</td><td><span class="pill warn">Medio</span></td><td>Es inherente al modelo gig y legalmente necesario para mantener el estatus de contratista; se compensa con mejor pago neto, prioridad de solicitudes y pagos más rápidos que la competencia</td></tr>
+    <tr><td>Dependencia de infraestructura de terceros (pagos, mapas, tiendas de apps)</td><td><span class="pill warn">Medio</span></td><td>Sin alternativa realista a corto plazo; mitigar con monitoreo de estado de servicio y cumplimiento estricto de políticas de Stripe/Apple/Google</td></tr>
+    <tr><td>Arranque de doble lado (sin prestadores no hay usuarios, sin usuarios no hay prestadores)</td><td><span class="pill bad">Alto</span></td><td>Reclutar oferta antes del lanzamiento público en Houston; subsidiar comisión los primeros meses para asegurar cobertura mínima</td></tr>
+  </table>
+</section>
+
+<section id="fuentes">
+  <h2><span class="num">13</span>Fuentes</h2>
+  <p class="sources">
+    IBISWorld — Car Wash &amp; Auto Detailing Industry (US) 2026 ·
+    Future Market Insights — Mobile Car Wash &amp; Detailing Market ·
+    Fortune Business Insights — U.S. Roadside Assistance Market ·
+    DetailPilot, Housecall Pro, AutoDetailer.com — Car Detailing Pricing Guides 2026 ·
+    Major Detailz, Panda Hub, SH Wash — Houston Detailing Pricing 2026 ·
+    Spec Auto Detailing — Ceramic Coating Cost 2026 ·
+    ConsumerAffairs, AutoNation Mobile Service — Water Pump Replacement Cost 2026 ·
+    Ecostify, Jet Black Tint — Window Tinting Cost 2026 ·
+    TravelMechanic, CarParts.com — Mobile Mechanic Services &amp; Cost 2026 ·
+    Aaron's Automotive Detailing, Kalise — PPF Cost Guide 2026 ·
+    Dentevo, Pro PDR — Paintless Dent Repair Cost 2026 ·
+    VinylFrog — Car Wrap Cost 2026 ·
+    Texas DPS — Vehicle Safety Inspection Changes (2025) y Emission Inspection Criteria ·
+    Houston Permitting Center — Automotive Repair Facility License ·
+    Texas.gov — Business Licenses &amp; Permits ·
+    Texas Workforce Commission — Independent Contractors / Marketplace Contractors ·
+    Epstein Becker Green — Texas Rule on Gig Workers ·
+    U.S. Department of Labor — Field Assistance Bulletin 2025-1 (FLSA independent contractor rule) ·
+    Harvard Business School — Disintermediation in Two-Sided Marketplaces ·
+    Sharetribe — Marketplace Disintermediation / Platform Leakage ·
+    Fortune Business Insights, GM Insights — Car Detailing Service Market Size 2026 ·
+    Rapid Recon, AutoFinance (AFC) — Dealer Holding Cost &amp; Days-to-Frontline 2026 ·
+    Mordor Intelligence — United States Automotive Service Market 2026 ·
+    Mordor Intelligence — United States Used Car Market, unidades vendidas anuales ·
+    NFX, The Marketplace Guide — Network Effects &amp; Defensibility in On-Demand Marketplaces ·
+    FTC — Franchise Rule, 16 CFR Part 436 (elemento de marca, control y cuota) ·
+    Sterling, Vetty — Verificación y niveles de certificación en plataformas gig de servicios a domicilio ·
+    Angi — Programa de certificación y verificación de prestadores
+  </p>
+</section>
+
+<div class="footer">Auto P1T Mobile — Documento Maestro del Proyecto · 17 de julio de 2026 · Documento vivo, sujeto a validación con datos primarios de mercado.</div>
+
+</div>
+</body>
+</html>
